@@ -31,7 +31,7 @@ stdenv.mkDerivation {
 
   passthru = {
     unwrapped = electron-unwrapped;
-    inherit (electron-unwrapped) headers dist;
+    inherit (electron-unwrapped) headers dist ozoneFlags;
   };
   inherit (electron-unwrapped) meta;
 }

@@ -4,6 +4,7 @@
 , makeWrapper
 , fetchurl
 , wrapGAppsHook3
+, electron
 , glib
 , gtk3
 , unzip
@@ -72,7 +73,10 @@ let
   common = platform: {
     inherit pname version meta;
     src = fetcher version (get tags platform) (get hashes platform);
-    passthru.headers = headersFetcher version hashes.headers;
+    passthru = {
+      headers = headersFetcher version hashes.headers;
+      inherit (electron) ozoneFlags;
+    };
   };
 
   electronLibPath = lib.makeLibraryPath ([
