@@ -22,6 +22,7 @@
 , vte
 , wrapGAppsHook3
 , xdg-utils
+, clutter
 }:
 let
   # Helper method to reduce redundancy
@@ -145,6 +146,7 @@ super: lib.trivial.pipe super [
       (substituteAll {
         src = ./extensionOverridesPatches/tophat_at_fflewddur.github.io.patch;
         gtop_path = "${libgtop}/lib/girepository-1.0";
+        inherit clutter;
       })
     ];
   }))
