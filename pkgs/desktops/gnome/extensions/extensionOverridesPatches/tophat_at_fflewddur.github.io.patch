@@ -63,3 +63,16 @@ diff --git a/lib/shared.js b/lib/shared.js
  import Clutter from 'gi://Clutter';
  
  export const SECOND_AS_MICROSECONDS = 1000000;
+diff --git a/prefs.js b/prefs.js
+index 92a8df3..1974415 100644
+--- a/prefs.js
++++ b/prefs.js
+@@ -17,6 +17,8 @@
+ // You should have received a copy of the GNU General Public License
+ // along with TopHat. If not, see <https://www.gnu.org/licenses/>.
+ 
++imports.gi.GIRepository.Repository.prepend_search_path('@clutter_gtk_path@');
++
+ import Adw from 'gi://Adw';
+ import Gdk from 'gi://Gdk';
+ import Gio from 'gi://Gio';

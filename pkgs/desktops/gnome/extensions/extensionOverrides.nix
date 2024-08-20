@@ -1,4 +1,5 @@
 { lib
+, clutter-gtk
 , ddcutil
 , easyeffects
 , gjs
@@ -145,6 +146,7 @@ super: lib.trivial.pipe super [
       (substituteAll {
         src = ./extensionOverridesPatches/tophat_at_fflewddur.github.io.patch;
         gtop_path = "${libgtop}/lib/girepository-1.0";
+        clutter_gtk_path = "${clutter-gtk}/lib/girepository-1.0";
       })
     ];
   }))
