@@ -3,6 +3,7 @@
   fetchurl,
   appimageTools,
   makeWrapper,
+  electron
 }:
 
 let
@@ -20,7 +21,7 @@ appimageTools.wrapType2 {
   extraInstallCommands = ''
     source "${makeWrapper}/nix-support/setup-hook"
     wrapProgram $out/bin/muffon \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+${electron.ozoneFlags}}}"
     install -m 444 -D ${appimageContents}/muffon.desktop -t $out/share/applications
     substituteInPlace $out/share/applications/muffon.desktop \
       --replace-fail 'Exec=AppRun' 'Exec=muffon'

@@ -1,4 +1,4 @@
-{ appimageTools, lib, fetchurl, makeWrapper}:
+{ appimageTools, lib, fetchurl, makeWrapper, electron }:
 
 appimageTools.wrapType2 rec {
   pname = "cider";
@@ -14,7 +14,7 @@ appimageTools.wrapType2 rec {
     in ''
       source "${makeWrapper}/nix-support/setup-hook"
       wrapProgram $out/bin/${pname} \
-        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
+        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+${electron.ozoneFlags}}}"
 
       install -m 444 -D ${contents}/${pname}.desktop -t $out/share/applications
       substituteInPlace $out/share/applications/${pname}.desktop \

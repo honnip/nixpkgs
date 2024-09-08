@@ -2,7 +2,7 @@
 , glib, pango, cairo, atk, gdk-pixbuf, gtk3, cups, nspr, nss_latest, libpng, libnotify
 , libgcrypt, systemd, fontconfig, dbus, expat, ffmpeg_4, curlWithGnuTls, zlib, zenity
 , at-spi2-atk, at-spi2-core, libpulseaudio, libdrm, mesa, libxkbcommon
-, pname, meta, harfbuzz, libayatana-appindicator, libdbusmenu, libGL
+, pname, meta, harfbuzz, libayatana-appindicator, libdbusmenu, libGL, electron
   # High-DPI support: Spotify's --force-device-scale-factor argument
   # not added if `null`, otherwise, should be a number.
 , deviceScaleFactor ? null
@@ -178,7 +178,7 @@ stdenv.mkDerivation {
         ''} \
         --prefix LD_LIBRARY_PATH : "$librarypath" \
         --prefix PATH : "${zenity}/bin" \
-        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--enable-features=UseOzonePlatform --ozone-platform=wayland}}"
+        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+${electron.ozoneFlags}}}"
 
       runHook postFixup
     '';

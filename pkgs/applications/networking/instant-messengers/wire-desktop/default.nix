@@ -15,6 +15,7 @@
 , nss
 , nspr
 , systemd
+, electron
 }:
 
 let
@@ -137,7 +138,7 @@ let
     ];
 
     preFixup = ''
-      gappsWrapperArgs+=(--add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --ozone-platform=wayland --enable-features=WaylandWindowDecorations}}")
+      gappsWrapperArgs+=(--add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+${electron.ozoneFlags}}}")
     '';
 
     postFixup = ''

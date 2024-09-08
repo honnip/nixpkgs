@@ -1,4 +1,4 @@
-{ lib, fetchurl, appimageTools, makeWrapper, imagemagick }:
+{ lib, fetchurl, appimageTools, makeWrapper, imagemagick, electron }:
 
 let
   pname = "ledger-live-desktop";
@@ -24,7 +24,7 @@ appimageTools.wrapType2 rec {
 
     source "${makeWrapper}/nix-support/setup-hook"
     wrapProgram "$out/bin/${pname}" \
-       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform=wayland --enable-features=WaylandWindowDecorations --enable-wayland-ime}}"
+       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+${electron.ozoneFlags}}}"
 
     substituteInPlace $out/share/applications/ledger-live-desktop.desktop \
       --replace 'Exec=AppRun' 'Exec=${pname}'

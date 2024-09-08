@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     makeShellWrapper "${lib.getExe electron_31}" "$out/bin/armcord" \
       --add-flags "$out/share/lib/armcord/resources/app.asar" \
       "''${gappsWrapperArgs[@]}" \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+${electron_31.ozoneFlags}}}" \
       --set-default ELECTRON_IS_DEV 0 \
       --inherit-argv0
 

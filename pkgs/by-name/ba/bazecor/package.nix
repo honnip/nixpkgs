@@ -3,6 +3,7 @@
   appimageTools,
   fetchurl,
   makeWrapper,
+  electron
 }:
 let
   pname = "bazecor";
@@ -40,7 +41,7 @@ appimageTools.wrapAppImage {
   extraInstallCommands = ''
     source "${makeWrapper}/nix-support/setup-hook"
     wrapProgram $out/bin/bazecor \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+${electron.ozoneFlags}}}"
 
     install -m 444 -D ${src}/Bazecor.desktop -t $out/share/applications
     install -m 444 -D ${src}/bazecor.png -t $out/share/pixmaps

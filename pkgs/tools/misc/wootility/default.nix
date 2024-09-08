@@ -2,6 +2,7 @@
 , fetchurl
 , lib
 , makeWrapper
+, electron
 }:
 
 let
@@ -21,7 +22,7 @@ appimageTools.wrapType2 {
     in ''
       source "${makeWrapper}/nix-support/setup-hook"
       wrapProgram $out/bin/wootility \
-        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
+        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+${electron.ozoneFlags}}}"
 
       install -Dm444 ${contents}/wootility-lekker.desktop -t $out/share/applications
       install -Dm444 ${contents}/wootility-lekker.png -t $out/share/pixmaps

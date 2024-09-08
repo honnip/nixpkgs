@@ -6,6 +6,7 @@
   makeDesktopItem,
   copyDesktopItems,
   makeWrapper,
+  electron
 }:
 
 let
@@ -56,7 +57,7 @@ stdenvNoCC.mkDerivation {
     cp -r ${appimageContents}/usr/share/icons $out/share
 
     wrapProgram $out/bin/chatzone-desktop \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+${electron.ozoneFlags}}}"
 
     runHook postInstall
   '';

@@ -18,6 +18,7 @@
 , systemd
 , openssl
 , libglvnd
+, electron
 }:
 
 let
@@ -82,7 +83,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform=wayland}}"
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+${electron.ozoneFlags}}}"
       --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libglvnd ]}
     )
   '';

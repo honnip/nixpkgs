@@ -11,6 +11,7 @@
   nix-update-script,
   versionCheckHook,
   which,
+  electron
 }:
 
 buildNpmPackage rec {
@@ -80,7 +81,7 @@ buildNpmPackage rec {
           ]
         } \
         --add-flags "$out/share/teams-for-linux/app.asar" \
-        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
+        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+${electron.ozoneFlags}}}"
     ''
     + lib.optionalString stdenv.isDarwin ''
       mkdir -p $out/Applications

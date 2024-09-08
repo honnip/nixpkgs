@@ -50,6 +50,7 @@
 , libpulseaudio
 , xdg-utils
 , wayland
+, electron
 }:
 
 { pname
@@ -229,7 +230,7 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+${electron.ozoneFlags}}}"
       --suffix PATH : ${lib.makeBinPath [ xdg-utils ]}
     )
 

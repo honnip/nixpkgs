@@ -82,7 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
       --inherit-argv0 \
       --add-flags --disable-gpu-compositing \
       --add-flags $out/share/heroic \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime}}"
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+${electron.ozoneFlags}}}"
 
     substituteInPlace "$out/share/heroic/flatpak/com.heroicgameslauncher.hgl.desktop" \
       --replace-fail "Exec=heroic-run" "Exec=heroic"

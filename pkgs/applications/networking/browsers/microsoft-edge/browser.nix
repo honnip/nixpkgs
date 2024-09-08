@@ -34,6 +34,7 @@
 , systemd
 , wayland
 , libGL
+, electron
 
 # command line arguments which are always set e.g "--disable-gpu"
 , commandLineArgs ? ""
@@ -178,7 +179,7 @@ stdenv.mkDerivation rec {
   postFixup = ''
     wrapProgram "$out/bin/${longName}" \
       --prefix XDG_DATA_DIRS : "${gtk3}/share/gsettings-schemas/${gtk3.pname}-${gtk3.version}" \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+${electron.ozoneFlags}}}" \
       --add-flags ${lib.escapeShellArg commandLineArgs}
   '';
 

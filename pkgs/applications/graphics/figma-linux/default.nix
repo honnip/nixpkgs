@@ -6,6 +6,7 @@
 , dpkg
 , makeWrapper
 , wrapGAppsHook3
+, electron
 , ...
 }:
 stdenv.mkDerivation (finalAttrs: {
@@ -71,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     wrapProgramShell $out/bin/figma-linux \
       "''${gappsWrapperArgs[@]}" \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--enable-features=UseOzonePlatform --ozone-platform=wayland}}"
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+${electron.ozoneFlags}}}"
 
     runHook postInstall
   '';

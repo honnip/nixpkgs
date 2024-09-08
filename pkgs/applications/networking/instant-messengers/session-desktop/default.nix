@@ -6,6 +6,7 @@
   fetchurl,
   appimageTools,
   makeWrapper,
+  electron
 }:
 
 let
@@ -48,7 +49,7 @@ stdenvNoCC.mkDerivation {
     cp -r bin $out/bin
 
     wrapProgram $out/bin/session-desktop \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+${electron.ozoneFlags}}}"
 
     runHook postInstall
   '';

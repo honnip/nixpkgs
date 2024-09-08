@@ -25,6 +25,7 @@
 , mesa
 , libglvnd
 , libappindicator-gtk3
+, electron
 }:
 
 # Helper function for building a derivation for Franz and forks.
@@ -91,7 +92,7 @@ in stdenv.mkDerivation (rec {
     wrapProgramShell $out/opt/${name}/${pname} \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeDependencies}" \
       --suffix PATH : ${xdg-utils}/bin \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+${electron.ozoneFlags}}}" \
       "''${gappsWrapperArgs[@]}"
   '';
 } // cleanedArgs)

@@ -7,6 +7,7 @@
 , curl
 , yq
 , common-updater-scripts
+, electron
 }:
 let
   pname = "beeper";
@@ -45,7 +46,7 @@ stdenvNoCC.mkDerivation rec {
     substituteInPlace $out/share/applications/${pname}.desktop --replace "AppRun" "${pname}"
 
     wrapProgram $out/bin/${pname} \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}} --no-update"
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+${electron.ozoneFlags}}} --no-update"
 
     runHook postInstall
   '';

@@ -35,7 +35,7 @@ in {
     makeWrapper "${electron}/bin/electron" $out/bin/affine \
       --inherit-argv0 \
       --add-flags $out/lib/app.asar \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+${electron.ozoneFlags}}}" \
       --add-flags ${lib.escapeShellArg commandLineArgs}
   '';
   desktopItems = [
